@@ -4,7 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.*
+import grindstone.sharpening.shoppinglist.adapters.ListViewAdapter
 import grindstone.sharpening.shoppinglist.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -18,31 +19,32 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val productsList: List<String> = listOf("Apples", "Bananas", "Rice", "Pasta", "Mama mia")
+        //Just a testing list with products
+        val productsList: List<String> = listOf("Arroz", "Bananas", "Massa", "Diogo", "Hamburguer", "Arroz", "Bananas", "Massa", "Diogo", "Hamburguer","Arroz", "Bananas", "Massa", "Diogo", "Hamburguer","Arroz", "Bananas", "Massa", "Diogo", "Hamburguer","Arroz", "Bananas", "Massa", "Diogo", "Hamburguer","Arroz", "Bananas", "Massa", "Diogo", "Hamburguer","Arroz", "Bananas", "Massa", "Diogo", "Hamburguer","Arroz", "Bananas", "Massa", "Diogo", "Hamburguer")
 
-        populateProductsList(productsList)
+        setupListView(productsList)
     }
 
-    fun populateProductsList(productsList: List<String>) {
+    /**
+     * Setup the ListView with the current list of products
+     * @param productsList String List with the products
+     */
+    private fun setupListView(productsList: List<String>) {
 
-        val iterator = productsList.listIterator()
+        val listAdapterProducts = ListViewAdapter(this, productsList)
 
-        while (iterator.hasNext()) {
-            val product = iterator.next()
-            Log.v(TAG, product)
-            binding.linearLayoutProductsList.addView(createTextViewProduct(product))
+        binding.listViewProductsList.adapter = listAdapterProducts
 
+        binding.listViewProductsList.setOnItemClickListener() { adapterView, view, position, id ->
+            val itemAtPos = adapterView.getItemAtPosition(position)
+            val itemIdAtPos = adapterView.getItemIdAtPosition(position)
+
+            val linearLayout = view as LinearLayout
+
+            val txtView = linearLayout.getChildAt(0) as TextView
+
+            Toast.makeText(this, "Click on item at $itemAtPos its item id $itemIdAtPos", Toast.LENGTH_SHORT).show()
         }
-    }
 
-    fun createTextViewProduct(product: String): TextView {
-
-        val layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-
-        val txtView = TextView(this)
-        txtView.layoutParams = layoutParams
-        txtView.text = product
-
-        return txtView
     }
 }
