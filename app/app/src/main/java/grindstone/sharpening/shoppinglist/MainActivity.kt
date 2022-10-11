@@ -21,8 +21,11 @@ class MainActivity : AppCompatActivity() {
 
         //Just a testing list with products
         val productsList: List<String> = listOf("Arroz", "Bananas", "Massa", "Diogo", "Hamburguer", "Arroz", "Bananas", "Massa", "Diogo", "Hamburguer","Arroz", "Bananas", "Massa", "Diogo", "Hamburguer","Arroz", "Bananas", "Massa", "Diogo", "Hamburguer","Arroz", "Bananas", "Massa", "Diogo", "Hamburguer","Arroz", "Bananas", "Massa", "Diogo", "Hamburguer","Arroz", "Bananas", "Massa", "Diogo", "Hamburguer","Arroz", "Bananas", "Massa", "Diogo", "Hamburguer")
+        var pr: ArrayList<String> = ArrayList()
+        pr.addAll(productsList.sorted())
 
-        setupListView(productsList)
+//        setupListView(productsList)
+        setupListView(pr)
     }
 
     /**
@@ -42,9 +45,9 @@ class MainActivity : AppCompatActivity() {
             val linearLayout = view as LinearLayout
 
             val txtView = linearLayout.getChildAt(0) as TextView
+            txtView.setTextAppearance(R.style.doneText)
 
             Toast.makeText(this, "Click on item at $itemAtPos its item id $itemIdAtPos", Toast.LENGTH_SHORT).show()
         }
-
     }
 }
