@@ -23,8 +23,6 @@ class MainActivity : AppCompatActivity() {
         val productsList: List<String> = listOf("Arroz", "Bananas", "Massa", "Diogo", "Hamburguer", "Arroz", "Bananas", "Massa", "Diogo", "Hamburguer","Arroz", "Bananas", "Massa", "Diogo", "Hamburguer","Arroz", "Bananas", "Massa", "Diogo", "Hamburguer","Arroz", "Bananas", "Massa", "Diogo", "Hamburguer","Arroz", "Bananas", "Massa", "Diogo", "Hamburguer","Arroz", "Bananas", "Massa", "Diogo", "Hamburguer","Arroz", "Bananas", "Massa", "Diogo", "Hamburguer")
         var pr: ArrayList<String> = ArrayList()
         pr.addAll(productsList.sorted())
-
-//        setupListView(productsList)
         setupListView(pr)
     }
 
