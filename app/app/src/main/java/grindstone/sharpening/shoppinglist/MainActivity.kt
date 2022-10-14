@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.ViewGroup
 import android.widget.*
 import grindstone.sharpening.shoppinglist.adapters.ListViewAdapter
+import grindstone.sharpening.shoppinglist.data.Product
 import grindstone.sharpening.shoppinglist.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -21,16 +22,16 @@ class MainActivity : AppCompatActivity() {
 
         //Just a testing list with products
         val productsList: List<String> = listOf("Arroz", "Bananas", "Massa", "Diogo", "Hamburguer", "Arroz", "Bananas", "Massa", "Diogo", "Hamburguer","Arroz", "Bananas", "Massa", "Diogo", "Hamburguer","Arroz", "Bananas", "Massa", "Diogo", "Hamburguer","Arroz", "Bananas", "Massa", "Diogo", "Hamburguer","Arroz", "Bananas", "Massa", "Diogo", "Hamburguer","Arroz", "Bananas", "Massa", "Diogo", "Hamburguer","Arroz", "Bananas", "Massa", "Diogo", "Hamburguer")
-        var pr: ArrayList<String> = ArrayList()
-        pr.addAll(productsList.sorted())
-        setupListView(pr)
+
+        setupListView(initProducts(productsList.sorted()))
+
     }
 
     /**
      * Setup the ListView with the current list of products
-     * @param productsList String List with the products
+     * @param productsList ArrayList with Product objects
      */
-    private fun setupListView(productsList: List<String>) {
+    private fun setupListView(productsList: ArrayList<Product>) {
 
         val listAdapterProducts = ListViewAdapter(this, productsList)
 
@@ -43,9 +44,36 @@ class MainActivity : AppCompatActivity() {
             val linearLayout = view as LinearLayout
 
             val txtView = linearLayout.getChildAt(0) as TextView
-            txtView.setTextAppearance(R.style.doneText)
+//            txtView.setTextAppearance(R.style.doneText)
 
-            Toast.makeText(this, "Click on item at $itemAtPos its item id $itemIdAtPos", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "Click on item at $itemAtPos its item id $itemIdAtPos", Toast.LENGTH_SHORT).show()
+
+            if (itemAtPos is Product) {
+                if(!itemAtPos.done) {
+                    itemAtPos.done = true
+                    txtView.setTextAppearance(R.style.doneText)
+                } else {
+                    itemAtPos.done = false
+                    txtView.setTextAppearance(R.style.todoText)
+                }
+
+            }
         }
+    }
+
+    /**
+     * Setup the ArrayList with Product objects based on a list of strings
+     * @param productsList String List with the products
+     */
+    private fun initProducts(productsList: List<String>): ArrayList<Product> {
+
+        var products: ArrayList<Product> = ArrayList()
+
+        for (product in productsList) {
+            products.add(Product(product, "", false))
+        }
+
+        return products
+
     }
 }

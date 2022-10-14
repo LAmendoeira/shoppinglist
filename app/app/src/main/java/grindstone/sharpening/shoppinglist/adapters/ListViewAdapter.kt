@@ -7,9 +7,10 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import grindstone.sharpening.shoppinglist.R
+import grindstone.sharpening.shoppinglist.data.Product
 
-class ListViewAdapter(private val context: Activity, private val products: List<String>) :
-    ArrayAdapter<String>(context, R.layout.list_view_item, products) {
+class ListViewAdapter(private val context: Activity, private val products: ArrayList<Product>) :
+    ArrayAdapter<Product>(context, R.layout.list_view_item, products) {
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         val inflater = context.layoutInflater
@@ -19,7 +20,7 @@ class ListViewAdapter(private val context: Activity, private val products: List<
         //val imageView = rowView.findViewById(R.id.icon) as ImageView
         //val subtitleText = rowView.findViewById(R.id.description) as TextView
 
-        titleText.text = products[position]
+        titleText.text = products[position].name
         titleText.setTextAppearance(R.style.todoText)
         //imageView.setImageResource(imgid[position])
         //subtitleText.text = description[position]
