@@ -2,7 +2,7 @@
 <resources>
     <style name="doneText">
         <item name="android:textStyle">italic</item>
-        <item name="android:textColor">#AAAAAA</item>
+        <item name="android:textColor">#C0C0C0</item>
     </style>
     <style name="todoText">
         <item name="android:textStyle">normal</item>

@@ -56,7 +56,6 @@ class MainActivity : AppCompatActivity() {
                     itemAtPos.done = false
                     txtView.setTextAppearance(R.style.todoText)
                 }
-
             }
         }
     }

@@ -21,7 +21,13 @@ class ListViewAdapter(private val context: Activity, private val products: Array
         //val subtitleText = rowView.findViewById(R.id.description) as TextView
 
         titleText.text = products[position].name
-        titleText.setTextAppearance(R.style.todoText)
+
+        if (products[position].done) {
+            titleText.setTextAppearance(R.style.doneText)
+        } else {
+            titleText.setTextAppearance(R.style.todoText)
+        }
+
         //imageView.setImageResource(imgid[position])
         //subtitleText.text = description[position]
 

@@ -12,6 +12,7 @@
     android:layout_centerVertical="false"
     android:gravity="center_vertical"
     android:text="TextView"
+    android:textSize="20sp"
     android:paddingStart="16dp"
     android:paddingEnd="16dp"
     android:paddingBottom="16dp"
