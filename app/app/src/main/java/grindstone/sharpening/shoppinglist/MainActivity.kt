@@ -1,8 +1,6 @@
 package grindstone.sharpening.shoppinglist
 
-import android.content.Context
 import android.os.Bundle
-import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
@@ -14,9 +12,11 @@ import grindstone.sharpening.shoppinglist.dialogFragments.AddProductDialogFragme
 class MainActivity : AppCompatActivity(), AddProductDialogFragment.DialogListener {
 
     private val TAG = "MainActivity"
+    private val PRODUCTS_KEY = "PRODUCTS"
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var listAdapterProducts: ListViewAdapter
+    private lateinit var listProducts: ArrayList<Product>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,22 @@ class MainActivity : AppCompatActivity(), AddProductDialogFragment.DialogListene
             "Diogo"
         )
 
+        //Read saved values if applicable
+        if (savedInstanceState != null) {
+            listProducts = savedInstanceState.getParcelableArrayList<Product>(PRODUCTS_KEY) as ArrayList<Product>
+        }
+
         setupListView(initProducts(productsList.sorted()))
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList(PRODUCTS_KEY, listProducts)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        listProducts = savedInstanceState.getParcelableArrayList<Product>(PRODUCTS_KEY) as ArrayList<Product>
     }
 
     /**
@@ -78,13 +93,14 @@ class MainActivity : AppCompatActivity(), AddProductDialogFragment.DialogListene
      */
     private fun initProducts(productsList: List<String>): ArrayList<Product> {
 
-        var products: ArrayList<Product> = ArrayList()
+        if(!this::listProducts.isInitialized) {
+            listProducts = ArrayList()
 
-        for (product in productsList) {
-            products.add(Product(product, "", false))
+            for (product in productsList) {
+                listProducts.add(Product(product, "", false))
+            }
         }
-
-        return products
+        return listProducts
     }
 
     /**
