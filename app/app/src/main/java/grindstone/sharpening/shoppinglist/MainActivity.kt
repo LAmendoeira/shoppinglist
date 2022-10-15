@@ -1,6 +1,7 @@
 package grindstone.sharpening.shoppinglist
 
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
@@ -85,6 +86,21 @@ class MainActivity : AppCompatActivity(), AddProductDialogFragment.DialogListene
                 }
             }
         }
+
+        binding.listViewProductsList.setOnItemLongClickListener() { adapterView, view, position, id ->
+            val itemAtPos = adapterView.getItemAtPosition(position)
+            val itemIdAtPos = adapterView.getItemIdAtPosition(position)
+
+            val linearLayout = view as LinearLayout
+
+            val txtView = linearLayout.getChildAt(0) as TextView
+
+            if (itemAtPos is Product) {
+                deleteProduct(itemAtPos)
+            }
+            true
+        }
+
     }
 
     /**
@@ -137,5 +153,13 @@ class MainActivity : AppCompatActivity(), AddProductDialogFragment.DialogListene
      */
     private fun addProduct(name: String) {
         listAdapterProducts.add(Product(name, "", false))
+    }
+
+    /**
+     * Adds a new product to the ListView
+     */
+    private fun deleteProduct(product: Product) {
+        listAdapterProducts.remove(product)
+        listProducts.remove(product)
     }
 }
